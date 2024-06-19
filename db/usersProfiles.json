@@ -5,7 +5,7 @@
     "birthDate": "14/11/2002",
     "gender": "Male",
     "phoneNumber": "995-840-8817",
-    "profilPicture": "http://dummyimage.com/145x100.png/dddddd/000000",
+    "profilePicture": "http://dummyimage.com/145x100.png/dddddd/000000",
     "address": "844 Redwing Way",
     "UserId": 1
   }, {
@@ -15,7 +15,7 @@
     "birthDate": "13/10/2007",
     "gender": "Male",
     "phoneNumber": "380-981-5676",
-    "profilPicture": "http://dummyimage.com/127x100.png/dddddd/000000",
+    "profilePicture": "http://dummyimage.com/127x100.png/dddddd/000000",
     "address": "7337 Grayhawk Pass",
     "UserId": 2
   }, {
@@ -25,7 +25,7 @@
     "birthDate": "13/01/1979",
     "gender": "Female",
     "phoneNumber": "462-209-1295",
-    "profilPicture": "http://dummyimage.com/146x100.png/5fa2dd/ffffff",
+    "profilePicture": "http://dummyimage.com/146x100.png/5fa2dd/ffffff",
     "address": "801 Little Fleur Park",
     "UserId": 3
   }, {
@@ -35,7 +35,7 @@
     "birthDate": "23/10/1996",
     "gender": "Female",
     "phoneNumber": "298-620-6693",
-    "profilPicture": "http://dummyimage.com/177x100.png/dddddd/000000",
+    "profilePicture": "http://dummyimage.com/177x100.png/dddddd/000000",
     "address": "8623 Barnett Lane",
     "UserId": 4
   }, {
@@ -45,7 +45,7 @@
     "birthDate": "29/09/1973",
     "gender": "Male",
     "phoneNumber": "868-813-5480",
-    "profilPicture": "http://dummyimage.com/154x100.png/5fa2dd/ffffff",
+    "profilePicture": "http://dummyimage.com/154x100.png/5fa2dd/ffffff",
     "address": "381 Gateway Pass",
     "UserId": 5
   }]
