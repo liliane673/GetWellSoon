@@ -1,0 +1,31 @@
+[{
+    "id": 1,
+    "username": "bbackhouse0",
+    "email": "sletts0@xrea.com",
+    "password": "gH6\"WTBu",
+    "role": "patient"
+  }, {
+    "id": 2,
+    "username": "fmcevilly1",
+    "email": "oclutten1@cyberchimps.com",
+    "password": "uL4!M6@1",
+    "role": "doctor"
+  }, {
+    "id": 3,
+    "username": "wcleeves2",
+    "email": "floxdale2@mac.com",
+    "password": "cP0\"/7MsZBvF1Q}",
+    "role": "patient"
+  }, {
+    "id": 4,
+    "username": "tfentem3",
+    "email": "sklausewitz3@bloglines.com",
+    "password": "dG3>Q&N/",
+    "role": "patient"
+  }, {
+    "id": 5,
+    "username": "bmusson4",
+    "email": "dbolingbroke4@wordpress.org",
+    "password": "tK2?n#cu0FtH",
+    "role": "doctor"
+  }]
