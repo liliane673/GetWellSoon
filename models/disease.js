@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Disease extends Model {
     /**
@@ -11,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Disease.hasMany(models.MedicalRecord);
+      Disease.belongsToMany(models.User, {through: models.MedicalRecord})
     }
   }
   Disease.init({

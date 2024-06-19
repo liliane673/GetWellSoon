@@ -2,7 +2,7 @@
     "id": 1,
     "DiseaseId": 4,
     "UserId": 5,
-    "dateConsultation": "23/04/2022",
+    "dateConsultation": "03/24/2022",
     "feeConsultation": 150232
   }, {
     "id": 2,
@@ -14,7 +14,7 @@
     "id": 3,
     "DiseaseId": 1,
     "UserId": 4,
-    "dateConsultation": "29/04/2024",
+    "dateConsultation": "09/29/2024",
     "feeConsultation": 171893
   }, {
     "id": 4,
@@ -32,7 +32,7 @@
     "id": 6,
     "DiseaseId": 2,
     "UserId": 5,
-    "dateConsultation": "13/12/2023",
+    "dateConsultation": "03/13/2023",
     "feeConsultation": 370024
   }, {
     "id": 7,
@@ -44,7 +44,7 @@
     "id": 8,
     "DiseaseId": 4,
     "UserId": 4,
-    "dateConsultation": "23/10/2022",
+    "dateConsultation": "10/23/2022",
     "feeConsultation": 122637
   }, {
     "id": 9,
@@ -56,7 +56,7 @@
     "id": 10,
     "DiseaseId": 1,
     "UserId": 4,
-    "dateConsultation": "31/08/2023",
+    "dateConsultation": "08/31/2023",
     "feeConsultation": 173739
   }]
   
