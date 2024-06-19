@@ -3,7 +3,7 @@
     "username": "postgres",
     "password": "postgres",
     "database": "GetWellSoon_db",
-    "host": "127.0.0.1",
+    "host": "172.28.128.1",
     "dialect": "postgres"
   },
   "test": {

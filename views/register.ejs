@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Well Soon</title>
+</head>
+<body>
+    <h1>Register</h1>
+
+    <form method="post">
+        <label for="username">Username</label><br>
+        <input type="text" name="username" id="username" placeholder="input your username here"><br><br>
+
+        <label for="email">Email</label><br>
+        <input type="email" name="email" id="email" placeholder="input your email here"><br><br>
+
+        <label for="password">Password</label><br>
+        <input type="text" name="password" id="password" placeholder="input your password here"><br><br>
+
+        <label for="role">Password</label><br>
+        <select name="role" id="role">
+            <option selected disabled>---Choose Your Role---</option>
+            <% role.forEach(el => { %>
+                <option value="<%= el %>"><%= el %></option>
+            <% }) %>
+        </select><br><br>
+
+        <button>Register</button>
+    </form>
+    
+</body>
+</html>

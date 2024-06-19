@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Well Soon</title>
+</head>
+<body>
+    <h1>Login</h1>
+
+    <% if (error) { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+
+    <form method="post">
+        <label for="username">Username</label><br>
+        <input type="text" name="username" id="username" placeholder="input your username here"><br><br>
+
+        <label for="password">Password</label><br>
+        <input type="text" name="password" id="password" placeholder="input your password here"><br><br>
+
+        <button>Login</button>
+    </form>
+
+     <p >Don't have an account ? <a href="/register"><b>Register Here</b></a></p>
+    
+</body>
+</html>
