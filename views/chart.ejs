@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Well Soon</title>
+
+  <style>
+    /* styles.css */
+
+    /* General styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #0073e6;
+      color: white;
+      padding: 10px 0;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul li {
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    h1,
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    p {
+      text-align: center;
+      font-size: 18px;
+      color: #555;
+    }
+
+    form {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    form input[type="text"],
+    form select {
+      padding: 10px;
+      font-size: 16px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    form button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #0073e6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: green;
+    }
+
+    a button {
+      background-color: green;
+    }
+
+    a button:hover {
+      background-color: #005bb5;
+    }
+
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    table th,
+    table td {
+      padding: 12px;
+      border: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #0073e6;
+      color: white;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    table tr:hover {
+      background-color: rgb(221, 221, 221);
+    }
+
+    table th,
+    table td {
+      text-align: center;
+    }
+
+    button {
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+      opacity: 0.3;
+    }
+
+    .card{
+      width: 60%;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/medical-records">Medical Records</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+  </nav>
+
+  <h1>Chart</h1>
+  <h2>Comparisons Count Patient of Each Doctors</h2>
+
+  <div class="card">
+    <canvas id="myChart"></canvas>
+    <table border="1">
+      <thead>
+        <tr style="font-weight: 900;">
+          <td>Doctor's Name</td>
+          <td>Count Patient</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <% dataDoctors.forEach((el,i)=> { %>
+        <tr>
+          <td>
+            <%= el %>
+          </td>
+          <td>
+            <%= count[i] %>
+          </td>
+        </tr>
+        <% }) %>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="../chart/src/acquisitions.js"></script>
+
+  <script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    let dataInput = [12, 19, 3, 5, 2, 3]
+    console.log(dataInput, '-------->>>>>')
+    let labelInput = ['Doctor1', 'Doctor2', 'Doctor3', 'Doctor4', 'Doctor5', 'Doctor6']
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labelInput,
+        datasets: [
+          {
+            label: 'Total Patients Handled',
+            data: dataInput,
+            borderWidth: 1
+          },
+        ]
+      },
+
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
