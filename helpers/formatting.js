@@ -7,4 +7,13 @@ function formatCurrency(value){
     return currencyRupiah.format(value);
 }
 
-module.exports={formatCurrency};
+function formatDate(value){
+    // const dayName= value.toLocaleDateString(locale, { weekday: 'long' }); 
+    const dayName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][value.getDay()]
+     
+    const dateFormat=  value.toISOString().split('T')[0];
+
+    return `${dayName}, ${dateFormat}`
+}
+
+module.exports={formatCurrency,formatDate};

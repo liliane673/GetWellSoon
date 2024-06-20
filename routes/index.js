@@ -15,7 +15,8 @@ const {
     getAddMedicalRecord,
     postAddMedicalRecord,
     getUpdateMedicalRecord,
-    postUpdateMedicalRecord
+    postUpdateMedicalRecord,
+    deleteMedicalRecord
 } = require('../controllers/medicalRecord');
 
 const router = require('express').Router()
@@ -49,6 +50,7 @@ router.get('/medical-records/add', getAddMedicalRecord);
 router.post('/medical-records/add',postAddMedicalRecord);
 router.get('/medical-records/update/:medicalRecordId', getUpdateMedicalRecord);
 router.post('/medical-records/update/:medicalRecordId',postUpdateMedicalRecord);
+router.get('/medical-records/delete/:medicalRecordId',deleteMedicalRecord);
 
 //route logout
 router.post('/logout');

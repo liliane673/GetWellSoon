@@ -8,8 +8,11 @@
 <body>
     <h1>Patient Medical Records</h1>
 
-    <p>Doctor : Fullname XXX</p>
+    <p>Doctor : Dr.<%= data[0].Doctor.UserProfile.fullName %></p><br>
+
+    <a href="/medical-records/add"><button>Add Medical Records</button></a>
     
+    <p style="font-weight: 900;">List of your patients medicals records</p>
     <table border="1">
         <thead>
             <th>No</th>
@@ -24,14 +27,14 @@
             <% data.forEach((el,i) => { %>
                 <tr>
                     <td><%= i+1 %></td>
-                    <td>Nama Dokter</td>
+                    <td><%= el.Patient.UserProfile.fullNameGender %></td>
                     <td><%= el.Disease.name %></td>
                     <td><%= el.Disease.level %></td>
                     <td><%= el.formatDate %></td>
                     <td><%= formatCurrency(el.feeConsultation) %></td>
                     <td>
-                        <a href=""><button>Update</button></a>
-                        <a href=""><button>Delete</button></a>
+                        <a href="/medical-records/update/<%= el.id %>"><button>Update</button></a>
+                        <a href="/medical-records/delete/<%= el.id %>"><button>Delete</button></a>
                     </td>
                 </tr>
             <% }) %>

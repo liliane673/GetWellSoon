@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Well Soon</title>
+</head>
+<body>
+    <h1>Update Medical Record</h1>
+
+    <form method="post">
+        <label for="PatientId">Patient Name</label><br>
+        <select name="PatientId" id="PatientId">
+            <option selected disabled>----Select Patient Name-----</option>
+            <% dataUsers.forEach(el => { %>
+                <option value="<%= el.id %>" <%= el.id == dataOneMedicalRecord.PatientId ? 'selected' : '' %>><%= el.UserProfile.fullName %></option>
+            <% }) %>
+        </select><br><br>
+
+        <label for="DiseaseId">Disease Name</label><br>
+        <select name="DiseaseId" id="DiseaseId">
+            <option selected disabled>----Select Disease-----</option>
+            <% dataDisease.forEach(el => { %>
+                <option value="<%= el.id %>"  <%= el.id == dataOneMedicalRecord.DiseaseId ? 'selected' : '' %>><%= el.name %></option>
+            <% }) %>
+        </select><br><br>
+
+        <label for="dateConsultation">Date Consultation : </label>
+        <span style="font-weight: 900;"><%= formatDate(dataOneMedicalRecord.dateConsultation) %></span><br><br>
+
+        <label for="feeConsultation">Fee Consultation</label><br>
+        Rp <input type="text" name="feeConsultation" id="feeConsultation" value="<%= dataOneMedicalRecord.feeConsultation %>"><br><br>
+
+        <button>Update Medical Record</button>
+
+    </form>
+    <br>
+    <a href="/medical-records"><button>Cancel</button></a>
+</body>
+</html>
