@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       UserProfile.belongsTo(models.User)
     }
 
+    static gender=["Male","Female"]
+
     get currentAge() {
       return `${Math.abs(new Date(new Date() - this.birthDate).getUTCFullYear() - 1970)}`
     }
