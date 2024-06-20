@@ -79,10 +79,10 @@
     <% if (errors) { %>
         <% if (errors.length>1) { %>
             <% errors.split(',').forEach(el => { %>
-                <div style="color: red;"><%= el %></div>
+                <p style="color: red;"><%= el %></p>
             <% }) %>
         <% } else { %>
-            <div style="color: red;"><%= errors %></div>
+            <p style="color: red;"><%= errors %></p>
         <% } %>
     <% } %>
     <br>
