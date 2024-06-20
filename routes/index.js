@@ -9,6 +9,8 @@ const {
     userProfile,
     getProfileUpdate,
     postProfileUpdate,
+    getCreateProfile,
+    postCreateProfile,
 } = require('../controllers/userProfile');
 const { 
     showAllMedicalRecords,
@@ -41,6 +43,8 @@ router.use((req, res, next) => {
 
 //route profile both for doctor and patient
 router.get('/profile', userProfile);
+router.get('/profile/add', getCreateProfile);
+router.post('/profile/add', postCreateProfile);
 router.get('/profile/update', getProfileUpdate);
 router.post('/profile/update', postProfileUpdate);
 

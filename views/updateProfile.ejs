@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Well Soon</title>
+</head>
+<body>
+    <h1>Update Profile</h1>
+    
+    <form method="post">
+        <label for="firstName">First Name</label><br>
+        <input type="text" name="firstName" id="firstName" value="<%= profileUser.firstName %>"><br><br>
+
+        <label for="lastName">Last Name</label><br>
+        <input type="text" name="lastName" id="lastName" value="<%= profileUser.lastName %>"><br><br>
+
+        <label for="birthDate">Birth Date</label><br>
+        <input type="date" name="birthDate" id="birthDate"><br><br>
+
+        <label for="gender">Gender</label><br>
+        <select name="gender" id="gender">
+            <option selected disabled>---Choose Gender---</option>
+            <% gender.forEach(el => { %>
+                <option value="<%= el %>" <%= profileUser.gender ==el ? 'selected' : '' %>><%= el %></option>
+            <% }) %>
+        </select><br><br>
+
+        <label for="phoneNumber">Phone Number</label><br>
+        <input type="text" name="phoneNumber" id="phoneNumber" value="<%= profileUser.phoneNumber %>"><br><br>
+
+        <label for="profilePicture">Profile Picture</label><br>
+        <input type="text" name="profilePicture" id="profilePicture" value="<%= profileUser.profilePicture %>"><br><br>
+
+        <label for="address">Address</label><br>
+        <input type="text" name="address" id="address"value="<%= profileUser.address %>"><br><br>
+
+        <button>Submit</button>
+    </form>
+</body>
+
+</html>
