@@ -8,19 +8,34 @@
 <body>
     <nav>
         <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="">Medical Records</a></li>
-            <li>You are login as ROLE - NAME</a></li>
-            <li><a href="">Logout</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/medical-records">Medical Records</a></li>
+            <li><a href="/logout">Logout</a></li>
         </ul>
     </nav>
 
     <h1>Patient Medical Records</h1>
 
-    <p>Name : <%= data[0].Patient.UserProfile.fullNameGender %></p>
-    <p>Birth Date : <%= formatDate(data[0].Patient.UserProfile.birthDate) %></p>
-    <p>Age : <%= data[0].Patient.UserProfile.currentAge %> tahun</p>
+    <p>Name : <%= dataUser.fullNameGender %></p>
+    <p>Birth Date : <%= formatDate(dataUser.birthDate) %></p>
+    <p>Age : <%= dataUser.currentAge %> tahun</p>
     
+    <form name="search">
+        <input type="text" name="search" id="search" placeholder="Search by Doctor Name">
+        <button>Search</button>
+    </form><br>
+
+    <form name="filter">
+        <span>Filter by Diseases</span>
+        <select name="filter" id="filter">
+            <option value="">All</option>
+            <% dataDisease.forEach(el => { %>
+                <option value="<%= el.name %>"><%= el.name %></option>
+            <% }) %>
+        </select>
+        <button>Filter</button>
+    </form><br><br>
+
     <table border="1">
         <thead>
             <th>No</th>
@@ -31,16 +46,18 @@
             <th>Fee Consultation</th>
         </thead>
         <tbody>
-            <% data.forEach((el,i) => { %>
-                <tr>
-                    <td><%= i+1 %></td>
-                    <td><%= el.Disease.name %></td>
-                    <td><%= el.Disease.level %></td>
-                    <td><%= formatDate(el.dateConsultation) %></td>
-                    <td>Dr. <%= el.Doctor.UserProfile.fullName %></td>
-                    <td><%= formatCurrency(el.feeConsultation) %></td>
-                </tr>
-            <% }) %>
+            <% if (data.length!==0) { %>
+                <% data.forEach((el,i) => { %>
+                    <tr>
+                        <td><%= i+1 %></td>
+                        <td><%= el.Disease.name %></td>
+                        <td><%= el.Disease.level %></td>
+                        <td><%= formatDate(el.dateConsultation) %></td>
+                        <td>Dr. <%= el.Doctor.UserProfile.fullName %></td>
+                        <td><%= formatCurrency(el.feeConsultation) %></td>
+                    </tr>
+                <% }) %>
+            <% } %>
         </tbody>
     </table>
     

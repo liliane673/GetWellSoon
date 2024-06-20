@@ -4,6 +4,7 @@ const {
     postRegister,
     getLogin,
     postLogin,
+    logoutUser
 } = require('../controllers/controller');
 const { 
     userProfile,
@@ -50,6 +51,15 @@ router.post('/profile/update', postProfileUpdate);
 
 //route medical records both for doctor and patient
 router.get('/medical-records', showAllMedicalRecords);
+
+router.use((req, res, next) => {
+    console.log(req.session);
+    if(!req.session.user || !req.session.user.id || req.session.user.role!=='doctor'){
+        const error="You dont have access!";
+        return res.redirect(`/login?error=${error}`);
+    }
+    next()
+})
 router.get('/medical-records/add', getAddMedicalRecord);
 router.post('/medical-records/add',postAddMedicalRecord);
 router.get('/medical-records/update/:medicalRecordId', getUpdateMedicalRecord);
@@ -57,6 +67,6 @@ router.post('/medical-records/update/:medicalRecordId',postUpdateMedicalRecord);
 router.get('/medical-records/delete/:medicalRecordId',deleteMedicalRecord);
 
 //route logout
-router.post('/logout');
+router.get('/logout', logoutUser);
 
 module.exports=router;

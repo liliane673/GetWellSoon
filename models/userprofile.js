@@ -34,13 +34,60 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   UserProfile.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    birthDate: DataTypes.DATE,
-    gender: DataTypes.STRING,
-    phoneNumber: DataTypes.STRING,
-    profilePicture: DataTypes.STRING,
-    address: DataTypes.STRING,
+    firstName:  {
+      type :DataTypes.STRING,
+      allowNull: false,
+      validate:{ 
+        notNull: {msg : 'First Name is required'},
+        notEmpty: {msg : 'First Name is required'}
+      },
+    },
+    lastName:  {
+      type :DataTypes.STRING,
+      allowNull: false,
+      validate:{ 
+        notNull: {msg : 'last Name is required'},
+      },
+    },
+    birthDate: {
+      type :DataTypes.DATE,
+      allowNull: false,
+      validate:{ 
+        notNull: {msg : 'Birth Date is required'},
+        notEmpty: {msg : 'Birth Date is required'}
+      },
+    },
+    gender: {
+      type :DataTypes.STRING,
+      allowNull: false,
+      validate:{ 
+        notNull: {msg : 'Gender is required'},
+        notEmpty: {msg : 'Gender is required'}
+      },
+    },
+    phoneNumber: {
+      type :DataTypes.STRING,
+      allowNull: false,
+      validate:{ 
+        notNull: {msg : 'Phone Number is required'},
+        notEmpty: {msg : 'Phone Number is required'}
+      },
+    },
+    profilePicture:  {
+      type :DataTypes.STRING,
+      allowNull: false,
+      validate:{ 
+        notNull: {msg : 'Profile Picture is required'},
+      },
+    },
+    address:  {
+      type :DataTypes.STRING,
+      allowNull: false,
+      validate:{ 
+        notNull: {msg : 'Address is required'},
+        notEmpty: {msg : 'Address is required'}
+      },
+    },
     UserId: DataTypes.INTEGER
   }, {
     sequelize,

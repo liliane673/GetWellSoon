@@ -17,9 +17,30 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Disease.init({
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    level: DataTypes.INTEGER
+    name: {
+      type :DataTypes.STRING,
+      allowNull: false,
+      validate:{ 
+        notNull: {msg : 'Name is required'},
+        notEmpty: {msg : 'Name is required'}
+      },
+    },
+    description: {
+      type :DataTypes.STRING,
+      allowNull: false,
+      validate:{ 
+        notNull: {msg : 'Description is required'},
+        notEmpty: {msg : 'Description is required'}
+      },
+    },
+    level: {
+      type :DataTypes.INTEGER,
+      allowNull: false,
+      validate:{ 
+        notNull: {msg : 'Level Pain is required'},
+        notEmpty: {msg : 'Level Pain is required'}
+      },
+    },
   }, {
     sequelize,
     modelName: 'Disease',

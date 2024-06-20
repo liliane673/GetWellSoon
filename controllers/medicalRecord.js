@@ -1,4 +1,4 @@
-const { where, Association } = require('sequelize');
+const { where, Association, Op } = require('sequelize');
 const {User, UserProfile,Disease,MedicalRecord} = require('../models');
 const bcrypt =require('bcryptjs');
 const {formatCurrency , formatDate}= require('../helpers/formatting');
@@ -10,42 +10,108 @@ module.exports={
     async showAllMedicalRecords(req,res){
         try {
             if(req.session.user.role==='doctor'){
-                let data= await MedicalRecord.findAll(
-                    {
-                        include: [
-                            Disease, 
-                            {association : "Doctor", include : UserProfile }, 
-                            {association : "Patient", include : UserProfile }
-                        ],
-                        attributes : [
-                            "id", "DiseaseId", "PatientId", "dateConsultation","feeConsultation"
-                        ],
-                        where: {
-                            DoctorId: req.session.user.id,
-                            },
+                let dataUser=await UserProfile.findOne({where: {UserId:req.session.user.id}});
+                console.log(dataUser)
+
+                if(!dataUser){
+                    const error="Please create profile first";
+                    return res.redirect(`/profile/add?errors=${error}`);
+                }
+
+                let {filter, search}=req.query;
+                let dataDisease=await Disease.findAll({
+                    order:[['id','asc']],
+                })
+
+                const option={
+                    include: [
+                        {model:Disease}, 
+                        {association : "Doctor", include : {model: UserProfile} }, 
+                        {association : "Patient", include : {model: UserProfile} }
+                    ],
+                    attributes : [
+                        "id", "DiseaseId", "PatientId", "dateConsultation","feeConsultation"
+                    ],
+                    where: {
+                        DoctorId: req.session.user.id,
+                        
                     },
-                );
+                }
+
+                
+                if(search){
+                    console.log(search);
+                    option.include[2].include.where={
+                        [Op.or]:[
+                            {firstName: {[Op.iLike] : `%${search}%`}},
+                            {lastName: {[Op.iLike] : `%${search}%`}}
+                        ]
+                    }
+                    option.include[2].required=true;
+                }
+                
+                if(filter){
+                    console.log(filter);
+                    option.include[0].where={
+                        name:filter
+                    }
+                }
+
+                let data= await MedicalRecord.findAll(option);
                 // res.send(data);
-                // console.log(data);
-                res.render('doctorMedicalRecords', {data, formatCurrency});
+                // console.log(data,'=======data>>>>>');
+                res.render('doctorMedicalRecords', {data, formatCurrency,dataDisease,dataUser});
 
             } else if(req.session.user.role==='patient'){
-                let data= await MedicalRecord.findAll(
-                    {
-                        include: [
-                            Disease, 
-                            {association : "Doctor", include : UserProfile }, 
-                            {association : "Patient", include : UserProfile }
-                        ],
-                        where: {
-                            PatientId: req.session.user.id,
-                            },
+                let dataUser=await UserProfile.findOne({where: {UserId:req.session.user.id}});
+                if(!dataUser){
+                    const error="Please create profile first";
+                    return res.redirect(`/profile/add?errors=${error}`);
+                }
+
+                let {filter, search}=req.query;
+                let dataDisease=await Disease.findAll({
+                    order:[['id','asc']],
+                })
+
+                const option={
+                    include: [
+                        {model:Disease}, 
+                        {association : "Doctor", include : {model: UserProfile} }, 
+                        {association : "Patient", include : {model: UserProfile} }
+                    ],
+                    attributes : [
+                        "id", "DiseaseId", "PatientId", "dateConsultation","feeConsultation"
+                    ],
+                    where: {
+                        PatientId: req.session.user.id,
+                        
                     },
-                    
-                );
+                }
+
+                
+                if(search){
+                    console.log(search);
+                    option.include[1].include.where={
+                        [Op.or]:[
+                            {firstName: {[Op.iLike] : `%${search}%`}},
+                            {lastName: {[Op.iLike] : `%${search}%`}}
+                        ]
+                    }
+                    option.include[1].required=true;
+                }
+                
+                if(filter){
+                    console.log(filter);
+                    option.include[0].where={
+                        name:filter
+                    }
+                }
+
+                let data= await MedicalRecord.findAll(option);
                 // res.send(data);
-                // console.log(data);
-                res.render('patientMedicalRecords', {data, formatCurrency,formatDate});
+                // console.log(data,'=======data>>>>>');
+                res.render('patientMedicalRecords', {data, formatCurrency,formatDate,dataDisease,dataUser});
             }    
             
         } catch (err) {
@@ -56,25 +122,27 @@ module.exports={
 
     async getAddMedicalRecord(req,res){
         try {
+            let {errors}= req.query;
             const date= new Date();
 
             let dataUsers=await User.findAll({
                 order:[['id','asc']],
-                include: UserProfile,
-                where:{role:'patient'}
+                include: {
+                    model:UserProfile,
+                    required:true,
+                },
+                where:{role:'patient'},
+                
             })
 
             let dataDisease=await Disease.findAll({
                 order:[['id','asc']],
             })
             // res.send(dataUsers);
-            res.render('addMedicalRecord', {date, formatDate, dataUsers, dataDisease})
+            res.render('addMedicalRecord', {date, formatDate, dataUsers, dataDisease,errors})
+            
         } catch (err) {
-            if(err.name=='SequelizeUniqueConstraintError'|| err.name=='SequelizeValidationError'){
-                res.send(err.message);
-            } else{
-                res.send(err.message);
-            }
+            res.send(err.message);
             console.log(err);
         }
     },
@@ -89,10 +157,11 @@ module.exports={
             // res.send(data);
             res.redirect('/medical-records');
         } catch (err) {
-            if(err.name=='SequelizeUniqueConstraintError'|| err.name=='SequelizeValidationError'){
-                res.send(err.message);
+            if(err.name =='SequelizeValidationError' || err.name=='SequelizeUniqueConstraintError'){
+                let errors= err.errors.map((el)=> el.message)
+                res.redirect(`/medical-records/add?errors=${errors}`);
             } else{
-                res.send(err.message);
+                res.send(err.message)
             }
             console.log(err);
         }
@@ -100,6 +169,7 @@ module.exports={
 
     async getUpdateMedicalRecord(req,res){
         try {
+            let {errors}= req.query;
             const {medicalRecordId}= req.params;
             const dataOneMedicalRecord= await MedicalRecord.findOne(
                 {
@@ -109,24 +179,24 @@ module.exports={
                     where: {id : medicalRecordId}
                 });
 
-            let dataUsers=await User.findAll({
-                order:[['id','asc']],
-                include: UserProfile,
-                where:{role:'patient'}
-            })
+                let dataUsers=await User.findAll({
+                    order:[['id','asc']],
+                    include: {
+                        model:UserProfile,
+                        required:true,
+                    },
+                    where:{role:'patient'},
+                    
+                })
 
             let dataDisease=await Disease.findAll({
                 order:[['id','asc']],
             })
 
             // res.send(dataOneMedicalRecord);
-            res.render('updateMedicalRecord',{dataUsers,dataDisease, dataOneMedicalRecord, formatDate})
+            res.render('updateMedicalRecord',{dataUsers,dataDisease, dataOneMedicalRecord, formatDate,errors})
         } catch (err) {
-            if(err.name=='SequelizeUniqueConstraintError'|| err.name=='SequelizeValidationError'){
-                res.send(err.message);
-            } else{
-                res.send(err.message);
-            }
+            res.send(err.message);
             console.log(err);
         }
     },
@@ -151,10 +221,11 @@ module.exports={
 
             res.redirect('/medical-records');
         } catch (err) {
-            if(err.name=='SequelizeUniqueConstraintError'|| err.name=='SequelizeValidationError'){
-                res.send(err.message);
+            if(err.name =='SequelizeValidationError' || err.name=='SequelizeUniqueConstraintError'){
+                let errors= err.errors.map((el)=> el.message)
+                res.redirect(`/medical-records/update?errors=${errors}`);
             } else{
-                res.send(err.message);
+                res.send(err.message)
             }
             console.log(err);
         }
@@ -175,11 +246,7 @@ module.exports={
             dataOneMedicalRecord.destroy();
             res.redirect('/medical-records');
         } catch (err) {
-            if(err.name=='SequelizeUniqueConstraintError'|| err.name=='SequelizeValidationError'){
-                res.send(err.message);
-            } else{
-                res.send(err.message);
-            }
+            res.send(err.message);
             console.log(err);
         }
     },
