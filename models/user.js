@@ -15,8 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasOne(models.UserProfile);
-      User.hasMany(models.MedicalRecord);
-      User.belongsToMany(models.Disease, {through: models.MedicalRecord})
+      User.hasMany(models.MedicalRecord, {foreignKey : "PatientId" , as: "MedicalRecordsPatient"});
+      User.hasMany(models.MedicalRecord, {foreignKey : "DoctorId" , as: "MedicalRecordsDoctor"});
+      User.belongsToMany(models.Disease, {through: models.MedicalRecord, foreignKey: "PatientId"})
     }
 
     static role=["doctor", "patient"]

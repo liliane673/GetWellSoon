@@ -1,6 +1,7 @@
 const { where } = require('sequelize');
 const {User, UserProfile,Disease,MedicalRecord} = require('../models');
 const bcrypt =require('bcryptjs');
+const {formatCurrency}= require('../helpers/formatting');
 
 
 module.exports={
@@ -9,22 +10,30 @@ module.exports={
     async showAllMedicalRecords(req,res){
         try {
             if(req.session.user.role==='doctor'){
-                res.render('doctorMedicalRecords');
-
-            } else if(req.session.user.role==='patient'){
                 let data= await MedicalRecord.findAll(
                     {
-                        include: {
-                            model: Disease,
-                          },
+                        include: [Disease, "Doctor", "Patient"],
                         where: {
-                            UserId: req.session.user.id,
+                            DoctorId: req.session.user.id,
                             },
                     },
                     
                 );
-                res.send(data)
-                // res.render('patientMedicalRecords');
+                res.send(data);
+                // res.render('doctorMedicalRecords', {data, formatCurrency});
+
+            } else if(req.session.user.role==='patient'){
+                let data= await MedicalRecord.findAll(
+                    {
+                        include: [Disease, "Doctor", "Patient"],
+                        where: {
+                            PatientId: req.session.user.id,
+                            },
+                    },
+                    
+                );
+                // console.log(data);
+                res.render('patientMedicalRecords', {data, formatCurrency});
             }    
             
         } catch (err) {

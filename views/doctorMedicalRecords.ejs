@@ -21,7 +21,20 @@
             <th>Action</th>
         </thead>
         <tbody>
-
+            <% data.forEach((el,i) => { %>
+                <tr>
+                    <td><%= i+1 %></td>
+                    <td>Nama Dokter</td>
+                    <td><%= el.Disease.name %></td>
+                    <td><%= el.Disease.level %></td>
+                    <td><%= el.formatDate %></td>
+                    <td><%= formatCurrency(el.feeConsultation) %></td>
+                    <td>
+                        <a href=""><button>Update</button></a>
+                        <a href=""><button>Delete</button></a>
+                    </td>
+                </tr>
+            <% }) %>
         </tbody>
     </table>
     

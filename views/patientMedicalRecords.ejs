@@ -16,12 +16,21 @@
             <th>No</th>
             <th>Disease Name</th>
             <th>Disease Level</th>
-            <th>Date Consultation</th>
+            <th>Date Consultation (yyyy-mm-dd)</th>
             <th>Doctor Name</th>
             <th>Fee Consultation</th>
         </thead>
         <tbody>
-
+            <% data.forEach((el,i) => { %>
+                <tr>
+                    <td><%= i+1 %></td>
+                    <td><%= el.Disease.name %></td>
+                    <td><%= el.Disease.level %></td>
+                    <td><%= el.formatDate %></td>
+                    <td>Nama Dokter</td>
+                    <td><%= formatCurrency(el.feeConsultation) %></td>
+                </tr>
+            <% }) %>
         </tbody>
     </table>
     

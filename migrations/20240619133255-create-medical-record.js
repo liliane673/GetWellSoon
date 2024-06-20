@@ -17,7 +17,16 @@ module.exports = {
         },
         onUpdate: 'cascade',
       },
-      UserId: {
+      PatientId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onUpdate: 'cascade',
+      
+      },
+      DoctorId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Users',
