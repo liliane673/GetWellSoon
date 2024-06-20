@@ -23,10 +23,43 @@ module.exports = (sequelize, DataTypes) => {
     static role=["doctor", "patient"]
   }
   User.init({
-    username: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role: DataTypes.STRING
+    username: {
+      type :DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate:{ 
+        notNull: {msg : 'Username is required'},
+        notEmpty: {msg : 'Username is required'}
+      },
+    },
+    
+    email:  {
+      type :DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate:{ 
+        notNull: {msg : 'Email is required'},
+        notEmpty: {msg : 'Email is required'},
+      },
+    },
+
+    password:  {
+      type :DataTypes.STRING,
+      allowNull: false,
+      validate:{ 
+        notNull: {msg : 'Password is required'},
+        notEmpty: {msg : 'Password is required'}
+      },
+    },
+
+    role:  {
+      type :DataTypes.STRING,
+      allowNull: false,
+      validate:{ 
+        notNull: {msg : 'Role is required'},
+        notEmpty: {msg : 'Role is required'}
+      },
+    }
   }, {
     sequelize,
     modelName: 'User',

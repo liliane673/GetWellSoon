@@ -15,14 +15,11 @@ module.exports={
 
     getRegister(req,res){
         try {
+            let {errors}= req.query;
             const role = User.role;
-            res.render('register', {role});
+            res.render('register', {role, errors});
         } catch (err) {
-            if(err.name=='SequelizeUniqueConstraintError'|| err.name=='SequelizeValidationError'){
-                res.send(err.message);
-            } else{
-                res.send(err.message);
-            }
+            res.send(err.message);
             console.log(err);
         }
     },
@@ -33,7 +30,12 @@ module.exports={
             await User.create({username,email,password,role});
             res.redirect('/login');
         } catch (err) {
-            res.send(err.message);
+            if(err.name =='SequelizeValidationError' || err.name=='SequelizeUniqueConstraintError'){
+                let errors= err.errors.map((el)=> el.message)
+                res.redirect(`/register?errors=${errors}`);
+            } else{
+                res.send(err.message)
+            }
             console.log(err);
         }
     },
@@ -72,9 +74,23 @@ module.exports={
                 return res.redirect(`/login?error=${error}`);
             }
         } catch (err) {
-            res.send(err.message);
+            if(err.name =='SequelizeValidationError'){
+                let errors= err.errors.map((el)=> el.message)
+                console.log(errors);
+                res.send(errors);
+            } else{
+                res.send(err.message)
+            }
             console.log(err);
         }
     },
     
+    async logoutUser(req,res){
+        req.session.destroy((err)=>{
+            if(err) res.send(err.message);
+            else{
+                res.redirect('/login');
+            }
+        })
+    },
 }

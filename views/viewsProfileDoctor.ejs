@@ -40,11 +40,24 @@
     </style>
 </head>
 <body>
+<nav>
+    Get Well Soon<br>
+    <a href="/medical-records">Check Medical Records</a>
+    <a href="/logout">Logout</a>
+</nav>
+<h1>Profile User</h1>
 
 <div class="container">
-    <p>Name: <%= data.name %></p>
+    <p>You are success login as a <b><%= (data.User.role).toUpperCase() %></b></p><br>
+
+    <img scr="<%= data.profilePicture %>" alt="user-profile"><br><br>
+    
+    <p>Name: <%= data.fullName %></p>
     <p>Email: <%= data.User.email %></p>
-    <p>Age: <%= user.age %></p>
+    <p>Birth Date: <%= formatDateOnly(data.birthDate) %></p>
+    <p>Gender: <%= data.gender %></p>
+    <p>Phone Number: <%= data.phoneNumber %></p>
+    <p>Adress: <%= data.address %></p>
     <a href="/profile/update">Update Profile</a>
 </div>
 
