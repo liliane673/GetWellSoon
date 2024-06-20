@@ -4,12 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Well Soon</title>
+    <style>
+    	body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    display: flex;
+    font-size: 0.8cm;
+    align-items: center;
+    padding: 20px;
+}
+
+.login button {
+    background-color: maroon;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 1px 0 10px 1px red;
+}
+
+
+main {
+    padding: 50px;
+}
+
+.hero {
+    position: relative;
+    text-align: center;
+    color: rgb(255, 255, 255);
+}
+
+.services {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.service {
+    background-color: #ff0000;
+    border: transparent;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 20%;
+    box-shadow: 1px 0 10px 1px red;
+    cursor: pointer;
+}
+
+.service a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+    </style>
 </head>
 <body>
-    <h1>Get Well Soon</h1>
-
-    <a href="/register"><button>Register</button></a>
-    <a href="/login"><button>Login</button></a>
-
+    <header>
+        <div class="logo">
+            <span>Get Well Soon</span>
+        </div>
+        </div>
+        <div class="login">
+            <a href="/register"><button>Register</button></a>
+            <a href="/login"><button>Login</button></a>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+        </section>
+        <section class="services">
+            <div class="service">
+                <a href="">Beranda</a>
+            </div>
+            <div class="service">
+                <a href="">Tentang Kami</a>
+            </div>
+            <div class="service">
+                <a href="">Fasilitas Layanan</a>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
