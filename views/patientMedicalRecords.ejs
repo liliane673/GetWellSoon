@@ -6,10 +6,20 @@
     <title>Get Well Soon</title>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="">Medical Records</a></li>
+            <li>You are login as ROLE - NAME</a></li>
+            <li><a href="">Logout</a></li>
+        </ul>
+    </nav>
+
     <h1>Patient Medical Records</h1>
 
-    <p>User : Fullname XXX</p>
-    <p>Age : XXX</p>
+    <p>Name : <%= data[0].Patient.UserProfile.fullNameGender %></p>
+    <p>Birth Date : <%= formatDate(data[0].Patient.UserProfile.birthDate) %></p>
+    <p>Age : <%= data[0].Patient.UserProfile.currentAge %> tahun</p>
     
     <table border="1">
         <thead>
@@ -26,8 +36,8 @@
                     <td><%= i+1 %></td>
                     <td><%= el.Disease.name %></td>
                     <td><%= el.Disease.level %></td>
-                    <td><%= el.formatDate %></td>
-                    <td>Nama Dokter</td>
+                    <td><%= formatDate(el.dateConsultation) %></td>
+                    <td>Dr. <%= el.Doctor.UserProfile.fullName %></td>
                     <td><%= formatCurrency(el.feeConsultation) %></td>
                 </tr>
             <% }) %>

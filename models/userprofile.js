@@ -14,6 +14,22 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       UserProfile.belongsTo(models.User)
     }
+
+    get currentAge() {
+      return `${Math.abs(new Date(new Date() - this.birthDate).getUTCFullYear() - 1970)}`
+    }
+
+    get fullName(){
+      return `${this.firstName} ${this.lastName}`
+    }
+
+    get fullNameGender(){
+      if(this.gender=='Male'){
+        return `Mr. ${this.fullName}`
+      } else{
+         return `Ms. ${this.fullName}`
+      }
+    }
   }
   UserProfile.init({
     firstName: DataTypes.STRING,

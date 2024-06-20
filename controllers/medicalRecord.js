@@ -1,7 +1,7 @@
-const { where } = require('sequelize');
+const { where, Association } = require('sequelize');
 const {User, UserProfile,Disease,MedicalRecord} = require('../models');
 const bcrypt =require('bcryptjs');
-const {formatCurrency}= require('../helpers/formatting');
+const {formatCurrency , formatDate}= require('../helpers/formatting');
 
 
 module.exports={
@@ -12,28 +12,40 @@ module.exports={
             if(req.session.user.role==='doctor'){
                 let data= await MedicalRecord.findAll(
                     {
-                        include: [Disease, "Doctor", "Patient"],
+                        include: [
+                            Disease, 
+                            {association : "Doctor", include : UserProfile }, 
+                            {association : "Patient", include : UserProfile }
+                        ],
+                        attributes : [
+                            "id", "DiseaseId", "PatientId", "dateConsultation","feeConsultation"
+                        ],
                         where: {
                             DoctorId: req.session.user.id,
                             },
                     },
-                    
                 );
-                res.send(data);
-                // res.render('doctorMedicalRecords', {data, formatCurrency});
+                // res.send(data);
+                // console.log(data);
+                res.render('doctorMedicalRecords', {data, formatCurrency});
 
             } else if(req.session.user.role==='patient'){
                 let data= await MedicalRecord.findAll(
                     {
-                        include: [Disease, "Doctor", "Patient"],
+                        include: [
+                            Disease, 
+                            {association : "Doctor", include : UserProfile }, 
+                            {association : "Patient", include : UserProfile }
+                        ],
                         where: {
                             PatientId: req.session.user.id,
                             },
                     },
                     
                 );
+                // res.send(data);
                 // console.log(data);
-                res.render('patientMedicalRecords', {data, formatCurrency});
+                res.render('patientMedicalRecords', {data, formatCurrency,formatDate});
             }    
             
         } catch (err) {
@@ -44,7 +56,19 @@ module.exports={
 
     async getAddMedicalRecord(req,res){
         try {
-            res.send('profile update')
+            const date= new Date();
+
+            let dataUsers=await User.findAll({
+                order:[['id','asc']],
+                include: UserProfile,
+                where:{role:'patient'}
+            })
+
+            let dataDisease=await Disease.findAll({
+                order:[['id','asc']],
+            })
+            // res.send(dataUsers);
+            res.render('addMedicalRecord', {date, formatDate, dataUsers, dataDisease})
         } catch (err) {
             if(err.name=='SequelizeUniqueConstraintError'|| err.name=='SequelizeValidationError'){
                 res.send(err.message);
@@ -58,15 +82,12 @@ module.exports={
     async postAddMedicalRecord(req,res){
         try {
             console.log(req.body);
+            const DoctorId= req.session.user.id
+            const {PatientId, DiseaseId,feeConsultation} = req.body;
+            let data= await MedicalRecord.create({PatientId, DiseaseId,feeConsultation,DoctorId});
 
-            //untuk cek middleware
-            // if(req.session.user.role==='doctor'){
-            //     res.send('userProfile DOCTOR');
-            // } else if(req.session.user.role==='patient'){
-            //     res.send('userProfile PATIENT');
-            // }      
-
-            res.send('profile post update')
+            // res.send(data);
+            res.redirect('/medical-records');
         } catch (err) {
             if(err.name=='SequelizeUniqueConstraintError'|| err.name=='SequelizeValidationError'){
                 res.send(err.message);
@@ -79,7 +100,27 @@ module.exports={
 
     async getUpdateMedicalRecord(req,res){
         try {
-            res.send('profile update')
+            const {medicalRecordId}= req.params;
+            const dataOneMedicalRecord= await MedicalRecord.findOne(
+                {
+                    attributes : [
+                        "id", "DiseaseId", "PatientId", "dateConsultation","feeConsultation"
+                    ],
+                    where: {id : medicalRecordId}
+                });
+
+            let dataUsers=await User.findAll({
+                order:[['id','asc']],
+                include: UserProfile,
+                where:{role:'patient'}
+            })
+
+            let dataDisease=await Disease.findAll({
+                order:[['id','asc']],
+            })
+
+            // res.send(dataOneMedicalRecord);
+            res.render('updateMedicalRecord',{dataUsers,dataDisease, dataOneMedicalRecord, formatDate})
         } catch (err) {
             if(err.name=='SequelizeUniqueConstraintError'|| err.name=='SequelizeValidationError'){
                 res.send(err.message);
@@ -92,16 +133,47 @@ module.exports={
     
     async postUpdateMedicalRecord(req,res){
         try {
+            const {medicalRecordId}= req.params;
+
             console.log(req.body);
+            const DoctorId= req.session.user.id
+            const {PatientId, DiseaseId,feeConsultation} = req.body;
 
-            //untuk cek middleware
-            // if(req.session.user.role==='doctor'){
-            //     res.send('userProfile DOCTOR');
-            // } else if(req.session.user.role==='patient'){
-            //     res.send('userProfile PATIENT');
-            // }      
+            let data= await MedicalRecord.update(
+                {
+                    PatientId :PatientId, 
+                    DiseaseId :DiseaseId,
+                    feeConsultation :feeConsultation,
+                    DoctorId:DoctorId
+                },
+                {where: {id : medicalRecordId}}
+            );
 
-            res.send('profile post update')
+            res.redirect('/medical-records');
+        } catch (err) {
+            if(err.name=='SequelizeUniqueConstraintError'|| err.name=='SequelizeValidationError'){
+                res.send(err.message);
+            } else{
+                res.send(err.message);
+            }
+            console.log(err);
+        }
+    },
+
+    async deleteMedicalRecord(req,res){
+        try {
+            const {medicalRecordId}= req.params;
+
+            const dataOneMedicalRecord= await MedicalRecord.findOne(
+                {
+                    attributes : [
+                        "id", "DiseaseId", "PatientId", "dateConsultation","feeConsultation"
+                    ],
+                    where: {id : medicalRecordId}
+                });
+            // res.send(dataOneMedicalRecord);
+            dataOneMedicalRecord.destroy();
+            res.redirect('/medical-records');
         } catch (err) {
             if(err.name=='SequelizeUniqueConstraintError'|| err.name=='SequelizeValidationError'){
                 res.send(err.message);

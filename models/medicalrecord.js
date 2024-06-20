@@ -31,5 +31,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'MedicalRecord',
   });
+  MedicalRecord.beforeCreate((instance)=>{
+    return instance.dateConsultation= new Date();
+  })
   return MedicalRecord;
 };
