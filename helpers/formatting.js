@@ -16,4 +16,8 @@ function formatDate(value){
     return `${dayName}, ${dateFormat}`
 }
 
-module.exports={formatCurrency,formatDate};
+function formatDateOnly(value){
+    return value.toISOString().split('T')[0];
+}
+
+module.exports={formatCurrency,formatDate, formatDateOnly};

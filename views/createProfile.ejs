@@ -7,6 +7,17 @@
 </head>
 <body>
     <h1>Create Profile</h1>
+
+    <% if (errors) { %>
+        <% if (errors.length>1) { %>
+            <% errors.split(',').forEach(el => { %>
+                <div style="color: red;"><%= el %></div>
+            <% }) %>
+        <% } else { %>
+            <div style="color: red;"><%= errors %></div>
+        <% } %>
+    <% } %>
+    <br>
     
     <form method="post">
         <label for="firstName">First Name</label><br>
@@ -33,7 +44,7 @@
         <input type="text" name="profilePicture" id="profilePicture"><br><br>
 
         <label for="address">Address</label><br>
-        <input type="text" name="address" id="address"><br><br>
+        <textarea id="address" name="address"></textarea><br><br>
 
         <button>Submit</button>
     </form>

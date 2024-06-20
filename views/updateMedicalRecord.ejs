@@ -8,6 +8,17 @@
 <body>
     <h1>Update Medical Record</h1>
 
+    <% if (errors) { %>
+        <% if (errors.length>1) { %>
+            <% errors.split(',').forEach(el => { %>
+                <div style="color: red;"><%= el %></div>
+            <% }) %>
+        <% } else { %>
+            <div style="color: red;"><%= error %></div>
+        <% } %>
+    <% } %>
+    <br>
+
     <form method="post">
         <label for="PatientId">Patient Name</label><br>
         <select name="PatientId" id="PatientId">

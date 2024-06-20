@@ -8,6 +8,17 @@
 <body>
     <h1>Register</h1>
 
+    <% if (errors) { %>
+        <% if (errors.length>1) { %>
+            <% errors.split(',').forEach(el => { %>
+                <div style="color: red;"><%= el %></div>
+            <% }) %>
+        <% } else { %>
+            <div style="color: red;"><%= error %></div>
+        <% } %>
+    <% } %>
+    <br>
+
     <form method="post">
         <label for="username">Username</label><br>
         <input type="text" name="username" id="username" placeholder="input your username here"><br><br>
@@ -28,6 +39,9 @@
 
         <button>Register</button>
     </form>
+
+    <br>
+    <a href="/"><button>Cancel</button></a>
     
 </body>
 </html>

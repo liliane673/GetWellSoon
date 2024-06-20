@@ -6,11 +6,36 @@
     <title>Get Well Soon</title>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/medical-records">Medical Records</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
     <h1>Patient Medical Records</h1>
+    
+    <p>Doctor : Dr.<%= dataUser.fullName %></p><br>
 
-    <p>Doctor : Dr.<%= data[0].Doctor.UserProfile.fullName %></p><br>
+    <form name="search">
+        <input type="text" name="search" id="search" placeholder="Search by Patient Name">
+        <button>Search</button>
+    </form><br>
 
-    <a href="/medical-records/add"><button>Add Medical Records</button></a>
+    <form name="filter">
+        <span>Filter by Diseases</span>
+        <select name="filter" id="filter">
+            <option value="">All</option>
+            <% dataDisease.forEach(el => { %>
+                <option value="<%= el.name %>"><%= el.name %></option>
+            <% }) %>
+        </select>
+        <button>Filter</button>
+    </form><br><br>
+
+    <a href="/medical-records/add"><button>Add Medical Records</button></a><br><br>
+    
     
     <p style="font-weight: 900;">List of your patients medicals records</p>
     <table border="1">
@@ -24,20 +49,23 @@
             <th>Action</th>
         </thead>
         <tbody>
-            <% data.forEach((el,i) => { %>
-                <tr>
-                    <td><%= i+1 %></td>
-                    <td><%= el.Patient.UserProfile.fullNameGender %></td>
-                    <td><%= el.Disease.name %></td>
-                    <td><%= el.Disease.level %></td>
-                    <td><%= el.formatDate %></td>
-                    <td><%= formatCurrency(el.feeConsultation) %></td>
-                    <td>
-                        <a href="/medical-records/update/<%= el.id %>"><button>Update</button></a>
-                        <a href="/medical-records/delete/<%= el.id %>"><button>Delete</button></a>
-                    </td>
-                </tr>
-            <% }) %>
+            <% if (data.length!==0) { %>
+                <% data.forEach((el,i) => { %>
+                    <tr>
+                        <td><%= i+1 %></td>
+                        <td><%= el.Patient.UserProfile.fullNameGender %></td>
+                        <td><%= el.Disease.name %></td>
+                        <td><%= el.Disease.level %></td>
+                        <td><%= el.formatDate %></td>
+                        <td><%= formatCurrency(el.feeConsultation) %></td>
+                        <td>
+                            <a href="/medical-records/update/<%= el.id %>"><button>Update</button></a>
+                            <a href="/medical-records/delete/<%= el.id %>"><button>Delete</button></a>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } %>
+            
         </tbody>
     </table>
     
