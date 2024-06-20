@@ -2,6 +2,8 @@ const { where, Association, Op } = require('sequelize');
 const {User, UserProfile,Disease,MedicalRecord} = require('../models');
 const bcrypt =require('bcryptjs');
 const {formatCurrency , formatDate}= require('../helpers/formatting');
+const { jsPDF } = require("jspdf"); // will automatically load the node version
+
 
 
 module.exports={
@@ -64,6 +66,8 @@ module.exports={
 
             } else if(req.session.user.role==='patient'){
                 let dataUser=await UserProfile.findOne({where: {UserId:req.session.user.id}});
+
+
                 if(!dataUser){
                     const error="Please create profile first";
                     return res.redirect(`/profile/add?errors=${error}`);
@@ -245,6 +249,51 @@ module.exports={
             // res.send(dataOneMedicalRecord);
             dataOneMedicalRecord.destroy();
             res.redirect('/medical-records');
+        } catch (err) {
+            res.send(err.message);
+            console.log(err);
+        }
+    },
+
+    async chart(req,res){
+        try {
+            let dataDoctors=await User.findAll({
+                order:[['id','asc']],
+                include: {
+                    model:UserProfile,
+                    required:true,
+                },
+                where:{role:'doctor'},
+            })
+
+            let data= await MedicalRecord.findAll({});
+            let obj={}
+            for(let i=0; i<data.length; i++){
+                if(obj[data[i].DoctorId]){
+                    obj[data[i].DoctorId] = 0;
+                }
+                obj[data[i].DoctorId]=+1;
+            }
+            // console.log(obj,'obj');
+
+            let count= dataDoctors.map((el) =>{
+                if(obj[el.id]){
+                    return obj[el.id]
+                } else{
+                    return 0
+                }
+            })
+            // console.log(count);
+
+            dataDoctors= dataDoctors.map((el)=>{
+                return el.UserProfile.fullName
+            })
+            // console.log(dataDoctors);
+
+            // let tesData=[12, 19, 3, 5, 2, 3]
+
+            ///kirim ${count} dan ${dataDoctors}
+            res.render('chart',{count,dataDoctors});
         } catch (err) {
             res.send(err.message);
             console.log(err);

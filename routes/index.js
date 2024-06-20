@@ -19,7 +19,8 @@ const {
     postAddMedicalRecord,
     getUpdateMedicalRecord,
     postUpdateMedicalRecord,
-    deleteMedicalRecord
+    deleteMedicalRecord,
+    chart
 } = require('../controllers/medicalRecord');
 
 const router = require('express').Router()
@@ -68,5 +69,7 @@ router.get('/medical-records/delete/:medicalRecordId',deleteMedicalRecord);
 
 //route logout
 router.get('/logout', logoutUser);
+
+router.get('/chart', chart);
 
 module.exports=router;
