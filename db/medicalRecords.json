@@ -1,61 +1,71 @@
 [{
     "id": 1,
     "DiseaseId": 4,
-    "UserId": 5,
+    "PatientId": 1,
+    "DoctorId":2,
     "dateConsultation": "03/24/2022",
     "feeConsultation": 150232
   }, {
     "id": 2,
     "DiseaseId": 3,
-    "UserId": 4,
+    "PatientId": 1,
+    "DoctorId":2,
     "dateConsultation": "10/02/2022",
     "feeConsultation": 744088
   }, {
     "id": 3,
     "DiseaseId": 1,
-    "UserId": 4,
+    "PatientId": 1,
+    "DoctorId":2,
     "dateConsultation": "09/29/2024",
     "feeConsultation": 171893
   }, {
     "id": 4,
     "DiseaseId": 4,
-    "UserId": 3,
+    "PatientId": 1,
+    "DoctorId":2,
     "dateConsultation": "04/02/2024",
     "feeConsultation": 327573
   }, {
     "id": 5,
     "DiseaseId": 5,
-    "UserId": 2,
+    "PatientId": 1,
+    "DoctorId":2,
     "dateConsultation": "12/04/2023",
     "feeConsultation": 732337
   }, {
     "id": 6,
     "DiseaseId": 2,
-    "UserId": 5,
+    "PatientId": 1,
+    "DoctorId":2,
     "dateConsultation": "03/13/2023",
     "feeConsultation": 370024
   }, {
     "id": 7,
     "DiseaseId": 5,
-    "UserId": 2,
+    "PatientId": 1,
+    "DoctorId":2,
     "dateConsultation": "08/02/2022",
     "feeConsultation": 802113
   }, {
     "id": 8,
     "DiseaseId": 4,
-    "UserId": 4,
+    "PatientId": 1,
+    "DoctorId":2,
     "dateConsultation": "10/23/2022",
     "feeConsultation": 122637
   }, {
     "id": 9,
     "DiseaseId": 3,
-    "UserId": 4,
+    "PatientId": 1,
+    "DoctorId":2,
     "dateConsultation": "09/08/2023",
     "feeConsultation": 297552
   }, {
     "id": 10,
     "DiseaseId": 1,
-    "UserId": 4,
+    "PatientId": 1,
+    "DoctorId":2,
     "dateConsultation": "08/31/2023",
     "feeConsultation": 173739
   }]

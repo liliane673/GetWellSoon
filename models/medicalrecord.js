@@ -12,13 +12,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      MedicalRecord.belongsTo(models.User);
+      MedicalRecord.belongsTo(models.User, {foreignKey: 'PatientId', as : "Patient"});
+      MedicalRecord.belongsTo(models.User, {foreignKey: 'DoctorId', as : "Doctor"});
       MedicalRecord.belongsTo(models.Disease);
+    }
+
+    get formatDate(){
+      return this.dateConsultation.toISOString().split('T')[0];
     }
   }
   MedicalRecord.init({
     DiseaseId: DataTypes.INTEGER,
-    UserId: DataTypes.INTEGER,
+    PatientId: DataTypes.INTEGER,
+    DoctorId: DataTypes.INTEGER,
     dateConsultation: DataTypes.DATE,
     feeConsultation: DataTypes.INTEGER
   }, {
