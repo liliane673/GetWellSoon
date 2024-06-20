@@ -9,7 +9,9 @@
         margin: 0;
         padding: 0;
         background-color: #f9f9f9;
-        align-items: center;
+        display: flex;
+        flex-direction: column;
+
     }
 
     nav {
@@ -134,11 +136,16 @@
 </style>
 </head>
 <body>
-<nav>
-    Get Well Soon<br>
-    <a href="/medical-records">Check Medical Records</a>
-    <a href="/logout">Logout</a>
-</nav>
+    
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/profile/update">Update Profile</a></li>
+            <li><a href="/medical-records">Medical Records</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
 <h1>Profile User</h1>
 
 <div class="container">
@@ -152,7 +159,7 @@
     <p>Gender: <%= data.gender %></p>
     <p>Phone Number: <%= data.phoneNumber %></p>
     <p>Adress: <%= data.address %></p>
-    <a href="/profile/update">Update Profile</a>
+    <a href="/profile/update"><button style="color: white;">Update Profile</button></a>
 </div>
 
 </body>

@@ -33,6 +33,9 @@ router.post('/register', postRegister);
 router.get('/login', getLogin);
 router.post('/login', postLogin);
 
+//route logout
+router.get('/logout', logoutUser);
+
 //middleware to check session
 router.use((req, res, next) => {
     console.log(req.session);
@@ -67,8 +70,7 @@ router.get('/medical-records/update/:medicalRecordId', getUpdateMedicalRecord);
 router.post('/medical-records/update/:medicalRecordId',postUpdateMedicalRecord);
 router.get('/medical-records/delete/:medicalRecordId',deleteMedicalRecord);
 
-//route logout
-router.get('/logout', logoutUser);
+
 
 router.get('/chart', chart);
 

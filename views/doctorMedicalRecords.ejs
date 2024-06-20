@@ -126,11 +126,25 @@ button {
     cursor: pointer;
     border: none;
     border-radius: 5px;
+    color:white
 }
 
 button:hover {
     background-color: #0056b3;
     opacity: 0.3;
+}
+
+.container {
+  height: 200px;
+  position: relative;
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
     </style>
@@ -139,7 +153,9 @@ button:hover {
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
+            <li><a href="/profile/update">Update Profile</a></li>
             <li><a href="/medical-records">Medical Records</a></li>
+            <li><a href="/chart">Chart Report</a></li>
             <li><a href="/logout">Logout</a></li>
         </ul>
     </nav>
@@ -154,7 +170,7 @@ button:hover {
     </form><br>
 
     <form name="filter">
-        <span>Filter by Diseases</span>
+        <span style="text-align: center;">Filter by Diseases</span>
         <select name="filter" id="filter">
             <option value="">All</option>
             <% dataDisease.forEach(el => { %>
@@ -164,8 +180,11 @@ button:hover {
         <button>Filter</button>
     </form><br><br>
 
-    <a href="/medical-records/add"><button>Add Medical Records</button></a><br><br>
-    
+    <div class="container">
+        <div class="vertical-center">
+            <a href="/medical-records/add"><button>Add Medical Records</button></a><br><br>
+        </div>
+    </div>
     
     <p style="font-weight: 900;">List of your patients medicals records</p>
     <table border="1">
