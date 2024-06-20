@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: orange;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        a {
+            color: #333;
+            text-decoration: none;
+            background-color: #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        a:hover {
+            background-color: #bbb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <p>Name: <%= data.name %></p>
+    <p>Email: <%= data.User.email %></p>
+    <p>Age: <%= user.age %></p>
+    <a href="/profile/update">Update Profile</a>
+</div>
+
+</body>
+</html>

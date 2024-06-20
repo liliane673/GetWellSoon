@@ -3,7 +3,7 @@
     "DiseaseId": 4,
     "PatientId": 1,
     "DoctorId":2,
-    "dateConsultation": "03/24/2022",
+    "dateConsultation": "24/03/2022",
     "feeConsultation": 150232
   }, {
     "id": 2,
@@ -17,7 +17,7 @@
     "DiseaseId": 1,
     "PatientId": 1,
     "DoctorId":2,
-    "dateConsultation": "09/29/2024",
+    "dateConsultation": "29/09/2024",
     "feeConsultation": 171893
   }, {
     "id": 4,
@@ -38,7 +38,7 @@
     "DiseaseId": 2,
     "PatientId": 1,
     "DoctorId":2,
-    "dateConsultation": "03/13/2023",
+    "dateConsultation": "13/03/2023",
     "feeConsultation": 370024
   }, {
     "id": 7,
@@ -52,7 +52,7 @@
     "DiseaseId": 4,
     "PatientId": 1,
     "DoctorId":2,
-    "dateConsultation": "10/23/2022",
+    "dateConsultation": "23/10/2022",
     "feeConsultation": 122637
   }, {
     "id": 9,
@@ -66,7 +66,7 @@
     "DiseaseId": 1,
     "PatientId": 1,
     "DoctorId":2,
-    "dateConsultation": "08/31/2023",
+    "dateConsultation": "31/08/2023",
     "feeConsultation": 173739
   }]
   
